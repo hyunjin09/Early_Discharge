@@ -1244,6 +1244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1340781314}
+  enemyCount: 0
   subStages:
   - {fileID: 1355909458}
   - {fileID: 1016993656}

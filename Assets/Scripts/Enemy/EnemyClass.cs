@@ -17,6 +17,7 @@ public abstract class EnemyClass : MonoBehaviour
     private float tick = 0f;
     public float StartDelay = 1f;
     private GameObject player;
+    public GameObject gameManager;
 
     protected virtual void Start()
     {
@@ -42,6 +43,8 @@ public abstract class EnemyClass : MonoBehaviour
         //StartCoroutine(DamageRoutine());
         if (Health <= 0)
         {
+            gameManager = GameObject.Find("GameManager");
+            gameManager.GetComponent<GameManager>().enemyCount--;
             // GameManager.Instance.EnemyCount--;
             Destroy(gameObject);
         }
