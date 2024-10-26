@@ -4,6 +4,8 @@ public class Player : MonoBehaviour
 {
 
     private float speed = 5;
+    public bool isMovingAuto = false;
+
     public bool isTouchTop;
     public bool isTouchBottom;
     public bool isTouchRight;
@@ -23,9 +25,11 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        Move();
-        Fire();
-        Reload();
+        if (!isMovingAuto) {
+            Move();
+            Fire();
+            Reload();
+        }
     }
 
     void Move(){
