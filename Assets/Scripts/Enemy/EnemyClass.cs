@@ -16,19 +16,23 @@ public abstract class EnemyClass : MonoBehaviour
 
     private float tick = 0f;
     public float StartDelay = 1f;
+    private GameObject player;
 
     protected virtual void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
-        if (CurrentRoutine == null && tick > StartDelay)
-        {
-            NextRoutine();
+        if(player.GetComponent<Player>().isMovingAuto == false){
+            if (CurrentRoutine == null && tick > StartDelay)
+            {
+                NextRoutine();
+            }
+            tick += Time.deltaTime;
         }
-        tick += Time.deltaTime;
+
     }
     public virtual void GetDamaged(float damage)
     {
