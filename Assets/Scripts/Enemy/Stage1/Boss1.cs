@@ -7,7 +7,7 @@ public class Boss1 : EnemyClass
     [SerializeField]
     private GameObject bul;
 
-    private float delayTime = 2f;
+    private float delayTime = 3f;
 
 
     protected override void Start()
@@ -23,12 +23,9 @@ public class Boss1 : EnemyClass
         if (GameObject.FindGameObjectWithTag("Player") != null) // 플레이어가 살아있는지 확인
         {
             float rand = Random.value;
-            if(true){
-                nextRoutines.Enqueue(NewActionRoutine(Fire()));
+            if(rand<0.5f){
+                nextRoutines.Enqueue(NewActionRoutine(FanShot()));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
-            }
-            else if(rand < 0.66f){
-
             }
             else{
                 nextRoutines.Enqueue(NewActionRoutine(Fire()));
@@ -61,7 +58,24 @@ public class Boss1 : EnemyClass
 
     }
 
-    // private IEnumerator FanShot(){
+    private IEnumerator FanShot(){
+        Vector3 shootPos = transform.position;
+        shootPos.y -= 1f;
+        Vector3 playerPos = GetPlayerPos();
+        
+        for(int i=0; i<3; i++){
+            for (int j = 0; j < 5; j++)
+            {
 
-    // }
+                GameObject cur = Instantiate(bul, shootPos, Quaternion.identity);
+                cur.GetComponent<Rigidbody2D>().linearVelocity
+                    = (playerPos + new Vector3(j - 2, 0, 0) / 0.5f - shootPos).normalized * 3f;
+            }
+            yield return new WaitForSeconds(1f);
+        }
+
+
+        yield return null;
+
+    }
 }
