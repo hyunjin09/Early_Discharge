@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameManager gameManager;
 
     private float speed = 5;
     public bool isMovingAuto = false;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
 
     public GameObject bulletObjA;
 
-    private float MaxHealth = 3f;
+    private float MaxHealth = 5f;
     private float Health;
 
     void Start(){
@@ -74,6 +75,8 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
         Debug.Log(Health);
+
+        gameManager.UpdateHealthImage(Health);
     }
 
     void OnTriggerEnter2D(Collider2D collision){

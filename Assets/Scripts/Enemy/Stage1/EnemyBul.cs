@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyBul : MonoBehaviour
 {
-    private float dmg = 0.5f;
+    private float dmg = 1.0f;
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.tag == "BorderBullet"){
             Destroy(gameObject);

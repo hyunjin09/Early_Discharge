@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private Vector3 hiddenPoint = new Vector3(0, -5.5f, 0);
     private Vector3 startPoint = new Vector3(0, -4, 0);
     public Player player;
+    public Image healthImage;
+    public Sprite[] healthSprites;
 
     public int enemyCount;
 
@@ -15,6 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject[] subStages;
 
     public GameObject ready, clear;
+
+    public void UpdateHealthImage(float health) {
+        healthImage.sprite = healthSprites[(int)health];
+    }
 
     public void NextStage() {
         if (subStageIdx < subStages.Length - 1){
