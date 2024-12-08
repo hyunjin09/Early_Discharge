@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boss2Missle : MonoBehaviour
 {
     private float dmg = 1f;
-    private float speed = 2f;
+    private float speed = 4f;
     private GameObject player;
     private bool condition = true;
 
