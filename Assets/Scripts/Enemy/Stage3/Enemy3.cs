@@ -24,15 +24,14 @@ public class Enemy3 : EnemyClass
         Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
         if (GameObject.FindGameObjectWithTag("Player") != null) // 플레이어가 살아있는지 확인
         {
-            nextRoutines.Enqueue(NewActionRoutine(Fire()));
+            nextRoutines.Enqueue(NewActionRoutine(FanFanShot()));
             nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
 
         return nextRoutines;
     }
-    private IEnumerator Fire()
-    {
+    private IEnumerator FanFanShot() {
         Vector3 shootPos = transform.position;
         shootPos.y -= 0.3f;
         Vector3 playerPos = GetPlayerPos();
@@ -49,7 +48,6 @@ public class Enemy3 : EnemyClass
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 float imageRotationOffset = 90f;
                 cur.transform.rotation = Quaternion.Euler(0, 0, angle + imageRotationOffset);
-
 
                 yield return new WaitForSeconds(0.1f);
             }
