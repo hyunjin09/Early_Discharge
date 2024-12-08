@@ -13,7 +13,7 @@ public class Enemy2 : EnemyClass
     protected override void Start()
     {
         base.Start();
-        MaxHealth = Health = 2;
+        MaxHealth = Health = 8f;
         AttackDamage = 0.5f;
         Size = 1f;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
