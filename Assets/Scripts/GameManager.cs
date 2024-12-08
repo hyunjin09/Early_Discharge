@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Image healthImage;
     public Sprite[] healthSprites;
-
+    public TimerController timer;
     public int enemyCount;
 
     private int subStageIdx = 0;
@@ -35,7 +35,9 @@ public class GameManager : MonoBehaviour
             enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         }
         else {
+            Debug.Log("111");
             clear.SetActive(true);
+            timer.EndTimer();
             Time.timeScale = 0;
         }
     }
