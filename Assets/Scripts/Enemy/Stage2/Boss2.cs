@@ -26,14 +26,10 @@ public class Boss2 : EnemyClass
         if (GameObject.FindGameObjectWithTag("Player") != null) // 플레이어가 살아있는지 확인
         {
             float rand = Random.value;
-            if(rand<0.33f){
+            if(rand<0.5f){
                 nextRoutines.Enqueue(NewActionRoutine(FanShot()));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
-            }
-            else if(rand<0.66f){
-                nextRoutines.Enqueue(NewActionRoutine(Fire()));
-                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
-            } else{
+            }else{
                 nextRoutines.Enqueue(NewActionRoutine(FireMissle()));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
             }
