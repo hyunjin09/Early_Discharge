@@ -8,4 +8,10 @@ public class StageManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Stage"+stageNum.ToString());
     }
+
+    public void GoBackToStartScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("StartScene");
+    } 
 }
