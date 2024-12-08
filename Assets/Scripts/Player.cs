@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
     private float MaxHealth = 5f;
     private float Health;
+    private bool isInvincible = false;
 
     void Start(){
         Health = MaxHealth;
@@ -70,13 +72,35 @@ public class Player : MonoBehaviour
     }
 
     public void GetDamaged(float dmg){
-        Health -= dmg;
-        if(Health <= 0){
-            Destroy(gameObject);
-        }
-        Debug.Log(Health);
+        if(!isInvincible){
+            Health -= dmg;
+            StartCoroutine(DamageRoutine());
+            if(Health <= 0){
+                Destroy(gameObject);
+            }
+            Debug.Log(Health);
 
-        gameManager.UpdateHealthImage(Health);
+            gameManager.UpdateHealthImage(Health);
+        }
+
+    }
+    private IEnumerator DamageRoutine()
+    {
+        isInvincible = true;
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+        for (float t = 0; t < 0.25f; t += Time.deltaTime)
+        {
+            foreach (var renderer in renderers)
+            {
+                if (renderer)
+                {
+                    renderer.color = Color.Lerp(Color.red, Color.white, t * 4);
+                }
+            }
+            yield return null;
+        }
+        isInvincible = false;
+
     }
 
     void OnTriggerEnter2D(Collider2D collision){

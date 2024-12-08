@@ -40,7 +40,7 @@ public abstract class EnemyClass : MonoBehaviour
 
         Health -= damage;
         Debug.Log(Health);
-        //StartCoroutine(DamageRoutine());
+        StartCoroutine(DamageRoutine());
         if (Health <= 0)
         {
             gameManager = GameObject.Find("GameManager");
