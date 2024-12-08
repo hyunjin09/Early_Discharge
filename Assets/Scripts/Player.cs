@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     void Start(){
         Health = MaxHealth;
+        maxShotDelay = 0.2f;
 
     }
     void Update()
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
 
     public void GetDamaged(float dmg){
         if(!isInvincible){
+            maxShotDelay += 0.1f;
             Health -= dmg;
             StartCoroutine(DamageRoutine());
             if(Health <= 0){
