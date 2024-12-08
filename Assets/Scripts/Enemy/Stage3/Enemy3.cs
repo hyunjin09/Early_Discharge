@@ -14,7 +14,7 @@ public class Enemy3 : EnemyClass
     protected override void Start()
     {
         base.Start();
-        MaxHealth = Health = 15;
+        MaxHealth = Health = 10;
         AttackDamage = 0.5f;
         Size = 1f;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
