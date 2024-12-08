@@ -1,5 +1,6 @@
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,9 +41,19 @@ public class GameManager : MonoBehaviour
             enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         }
         else {
+            string stageNum = SceneManager.GetActiveScene().name.Substring(5);
+
             clear.SetActive(true);
             timer.EndTimer();
+
             Time.timeScale = 0;
+
+            float prevRecord = PlayerPrefs.GetFloat("s"+stageNum, -1.0f);
+            float curRecord = timer.elapsedTime;
+
+            if (prevRecord < 0 || curRecord < prevRecord) {
+                PlayerPrefs.SetFloat("s"+stageNum, curRecord);
+            }
         }
     }
 
