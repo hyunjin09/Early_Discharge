@@ -26,13 +26,16 @@ public abstract class EnemyClass : MonoBehaviour
 
     private void Update()
     {
-        if(player.GetComponent<Player>().isMovingAuto == false){
-            if (CurrentRoutine == null && tick > StartDelay)
-            {
-                NextRoutine();
+        if (GameObject.FindGameObjectWithTag("Player") != null){
+            if(player.GetComponent<Player>().isMovingAuto == false){
+                if (CurrentRoutine == null && tick > StartDelay)
+                {
+                    NextRoutine();
+                }
+                tick += Time.deltaTime;
             }
-            tick += Time.deltaTime;
         }
+
 
     }
     public virtual void GetDamaged(float damage)
