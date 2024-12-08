@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
             Health -= dmg;
             StartCoroutine(DamageRoutine());
             if(Health <= 0){
+                gameManager.Dead();
                 Destroy(gameObject);
             }
             Debug.Log(Health);

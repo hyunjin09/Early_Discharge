@@ -16,12 +16,17 @@ public class GameManager : MonoBehaviour
     private int subStageIdx = 0;
     public GameObject[] subStages;
 
-    public GameObject ready, clear;
+    public GameObject ready, clear, dead;
 
     public void UpdateHealthImage(float health) {
         healthImage.sprite = healthSprites[(int)health];
     }
 
+    public void Dead(){
+        dead.SetActive(true);
+        timer.EndTimer();
+        Time.timeScale = 0;
+    }
     public void NextStage() {
         if (subStageIdx < subStages.Length - 1){
             subStages[subStageIdx].SetActive(false);
@@ -35,7 +40,6 @@ public class GameManager : MonoBehaviour
             enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         }
         else {
-            Debug.Log("111");
             clear.SetActive(true);
             timer.EndTimer();
             Time.timeScale = 0;
