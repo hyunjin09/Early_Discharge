@@ -22,12 +22,16 @@ public class Boss3 : EnemyClass
         if (GameObject.FindGameObjectWithTag("Player") != null) // 플레이어가 살아있는지 확인
         {
             float rand = Random.value;
-            if(rand<0.5f){
+            if (rand<0.33f) {
                 nextRoutines.Enqueue(NewActionRoutine(FanShot()));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
             }
-            else{
-                nextRoutines.Enqueue(NewActionRoutine(Fire()));
+            else if(rand < 0.66f) {
+                nextRoutines.Enqueue(NewActionRoutine(FanFanShot()));
+                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
+            }
+            else {
+                nextRoutines.Enqueue(NewActionRoutine(FanFanShot()));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(delayTime)));
             }
             
@@ -37,43 +41,54 @@ public class Boss3 : EnemyClass
 
         return nextRoutines;
     }
-    private IEnumerator Fire()
-    {
-        for(int i=0; i<5; i++){
-            Vector3 playerPos = GetPlayerPos();
-            Vector3 curPos = GetObjectPos();
-            Vector3 toPlayer = playerPos - curPos;
-
-            Vector3 shootPos = transform.position;
-            shootPos.y -= 1f;
-
-            GameObject bullet = Instantiate(bul, shootPos, transform.rotation);
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-            rigid.linearVelocity = toPlayer.normalized * 5f;
-
-            Destroy(bullet, 10f);
-            yield return new WaitForSeconds(1f);
-        }
-
-    }
-
     private IEnumerator FanShot(){
         Vector3 shootPos = transform.position;
         shootPos.y -= 1f;
         Vector3 playerPos = GetPlayerPos();
         
-        for(int i=0; i<3; i++){
-            for (int j = 0; j < 5; j++)
-            {
-
+        for(int i=0; i<3; i++) {
+            for (int j=0; j<7; j++) {
                 GameObject cur = Instantiate(bul, shootPos, Quaternion.identity);
                 cur.GetComponent<Rigidbody2D>().linearVelocity
-                    = (playerPos + new Vector3(j - 2, 0, 0) / 0.5f - shootPos).normalized * 3f;
+                    = (playerPos + new Vector3(j-3, 0, 0) / 0.7f - shootPos).normalized * 5.0f;
             }
             yield return new WaitForSeconds(1f);
         }
 
         yield return null;
 
+    }
+
+    private IEnumerator FanFanShot() {
+        Vector3 shootPos = transform.position;
+        shootPos.y -= 0.3f;
+        Vector3 playerPos = GetPlayerPos();
+        
+        for(int i=0; i<3; i++) {
+            float rand = Random.value;
+
+            for (int j=0; j<2; j++) {
+                if (j == 1) rand = rand > 0.5f ? 0.0f : 1.0f;
+                
+                for (int k=0; k<8; k++) {
+                    GameObject cur = Instantiate(bul, shootPos, Quaternion.identity);
+                    Vector3 xVector = new Vector3(k - 4.0f + (float)i / 2, 0, 0) / 0.6f * (rand > 0.5f ? 1 : -1);
+
+                    cur.GetComponent<Rigidbody2D>().linearVelocity
+                        = (playerPos - shootPos + xVector).normalized * 5.0f;
+
+                    Vector2 direction = (playerPos - shootPos + xVector).normalized;
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    float imageRotationOffset = 90f;
+                    cur.transform.rotation = Quaternion.Euler(0, 0, angle + imageRotationOffset);
+
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        
+        yield return null;
     }
 }
