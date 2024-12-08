@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeCounter: {fileID: 806077342}
+  elapsedTime: 0
 --- !u!4 &53817354
 Transform:
   m_ObjectHideFlags: 0
