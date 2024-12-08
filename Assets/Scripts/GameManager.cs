@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        player.transform.position = hiddenPoint;
+        player.isMovingAuto = true;
+        
+        ready.SetActive(true);
+        
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
